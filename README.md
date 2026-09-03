@@ -9,8 +9,6 @@ Este repositorio documenta el diseño de hardware y el desarrollo de firmware pa
 
 El sistema permite adquirir variables térmicas críticas y procesarlas a través de un microcontrolador, facilitando el mantenimiento preventivo y asegurando la correcta disipación térmica de los equipos.
 
-*(Inserta aquí un diagrama de bloques del sistema o una captura del esquemático de medición)*
-`![Diagrama o foto del sistema](ruta_imagen.png)`
 
 ## ⚙️ Características del Proyecto
 
@@ -23,7 +21,7 @@ El sistema permite adquirir variables térmicas críticas y procesarlas a travé
 ### 🔌 Hardware (Altium Designer)
 * **Diseño Esquemático:** Circuitería de acondicionamiento de señales para los sensores de temperatura.
 * **PCB Layout:** Ruteo estratégico para aislar la etapa de medición analógica del ruido electromagnético de los convertidores.
-* **Componentes Clave:** *(Menciona aquí los sensores específicos, ej: PT100, LM35, termopares, etc.)*.
+* **Componentes Clave:** 
 
 ## 📂 Estructura del Repositorio
 * `/Firmware`: Contiene el código fuente y las rutinas de lectura de los sensores.
@@ -31,6 +29,6 @@ El sistema permite adquirir variables térmicas críticas y procesarlas a travé
 * `/Docs`: Esquemáticos exportados en PDF para revisión rápida sin software EDA.
 
 ## 👨‍💻 Autor
-**Felipe Antonio**  
+**Felipe Rojas**  
 *Ingeniero Civil Electrónico*  
-[Perfil de LinkedIn](https://www.linkedin.com/in/tu-perfil)
+[Perfil de LinkedIn](https://www.linkedin.com/in/felipe-rojas-monrroy)
