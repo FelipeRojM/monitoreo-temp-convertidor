@@ -1,0 +1,52 @@
+volatile uint8_t GPIO_actual = 1;                 // Control del GPIO actual
+volatile float duty_measurements[10];            // Almacena 10 mediciones por GPIO
+volatile float average_duties[4];                // Promedio para cada GPIO (1 a 4)
+volatile uint8_t measurement_count = 0;          // Contador de mediciones
+volatile float duty_sum = 0;                     // Suma acumulada de Duty Cycles
+
+void ProcessMeasurements(void) {
+    // Calcular el promedio
+    if (measurement_count == 10) {
+        average_duties[GPIO_actual - 1] = duty_sum / 10.0f;  // Guardar promedio
+        duty_sum = 0;                                       // Reiniciar suma
+        measurement_count = 0;                              // Reiniciar contador
+
+        // Avanzar al siguiente GPIO_actual
+        GPIO_actual++;
+        if (GPIO_actual > 4) {
+            GPIO_actual = 1; // Reiniciar ciclo
+        }
+    }
+}
+
+void MeasureDutyCycle(void) {
+    for (uint8_t i = 0; i < 10; i++) {
+        // Simulación: Leer Duty Cycle desde Timer o Callback
+        float duty = (float)(HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2)) /
+                     (float)(HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_1)) * 100;
+
+        duty_measurements[i] = duty; // Guardar medición en el array
+        duty_sum += duty;            // Acumular valor para promedio
+        measurement_count++;         // Incrementar contador
+
+        // Simula un retardo entre mediciones (reemplaza por tu lógica real si aplica)
+        HAL_Delay(10); // 10 ms de espera
+    }
+
+    // Procesar mediciones y cambiar estado del GPIO
+    ProcessMeasurements();
+}
+
+int main(void)
+{
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_2);
+
+  while (1)
+  {
+    /* USER CODE END WHILE */
+	  MeasureDutyCycle();
+
+    /* USER CODE BEGIN 3 */
+  }
+}

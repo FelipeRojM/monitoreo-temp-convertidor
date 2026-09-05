@@ -1,0 +1,94 @@
+/* funcion 1
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+    capture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+    period = (float)(capture - last_capture);
+    last_capture = capture;
+
+    // Calcula la frecuencia
+    frequency = 1000000.0f / period; // 1 MHz / período en µs
+
+    // Captura el valor del canal 2 para calcular el ciclo de trabajo
+    high_time = (float)HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
+    duty_cycle = (high_time * 100.0f)/period;
+
+    // Imprime los valores en la consola
+    //printf("Frequency: %.2f Hz\n", frequency);
+    //printf("Duty Cycle: %.2f %%\n", duty_cycle);
+}
+*/
+
+// funcion 2
+/*
+ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+ {
+	 static uint32_t last_capture = 0;
+	 uint32_t capture;
+	 float period, high_time;
+     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+        capture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+        period = (float)(capture - last_capture);
+        last_capture = capture;
+
+        // Calcula la frecuencia
+        frequency = 1000000.0f / period; // 1 MHz / período en µs
+     }
+
+     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2) {
+        high_time = (float)HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_2);
+
+        // Calcula el ciclo de trabajo
+        duty_cycle = (high_time * 100.0f) / period;
+     }
+}
+ */
+
+// funcion 3
+/*
+ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+ {
+     static uint32_t last_capture = 0;
+     static uint32_t high_time = 0;
+     uint32_t capture;
+     float period;
+
+     if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+         capture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+
+         if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC1OF)) {
+             // Overflow flag is set, handle overflow
+             __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC1OF);
+             return;
+         }
+
+         if (last_capture == 0) {
+             last_capture = capture;
+             return;
+         }
+
+         if (capture > last_capture) {
+             period = (float)(capture - last_capture);
+         } else {
+             period = (float)((0xFFFF - last_capture) + capture + 1);
+         }
+
+         if (__HAL_TIM_GET_COMPARE(htim, TIM_CHANNEL_1) == capture) {
+             high_time = period;
+         } else {
+             frequency = 1000000.0f / period; // 1 MHz / período en µs
+             duty_cycle = (high_time * 100.0f) / period;
+         }
+
+         last_capture = capture;
+     }
+ }
+ */
+
+
+  /*TIM1->CCR1 = 890;
+  //__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1, 55);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+
+  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+*/

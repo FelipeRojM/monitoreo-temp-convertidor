@@ -5,7 +5,7 @@
 ![Firmware](https://img.shields.io/badge/Firmware-Microcontroladores-orange?style=for-the-badge)
 
 ## 📌 Descripción General
-Este repositorio documenta el diseño de hardware y el desarrollo de firmware para un sistema de medición y monitoreo de temperatura en convertidores de potencia. Este proyecto fue desarrollado como parte de mis funciones de ingeniería durante mi práctica profesional, operando en el contexto de una planta de generación PV+BESS (San Andrés).
+Este repositorio documenta el diseño de hardware y el desarrollo de firmware para un sistema de medición y monitoreo de temperatura en convertidores de potencia. Este proyecto fue desarrollado como parte de mis funciones de ingeniería durante mi práctica en el AC3E para los convertidores utilizados en los racks de su laboratorio.
 
 El sistema permite adquirir variables térmicas críticas y procesarlas a través de un microcontrolador, facilitando el mantenimiento preventivo y asegurando la correcta disipación térmica de los equipos.
 
